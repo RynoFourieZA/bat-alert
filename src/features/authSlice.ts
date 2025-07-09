@@ -2,10 +2,14 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
   token: string;
+  status: string;
+  message: string;
 }
 
 const initialState: AuthState = {
-  token: ""
+  token: "",
+  status: "",
+  message: "",
 };
 
 const authSlice = createSlice({
@@ -21,6 +25,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials } = authSlice.actions;
+export const { setCredentials, unsetCredentials } = authSlice.actions;
 
 export default authSlice.reducer;
