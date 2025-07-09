@@ -1,7 +1,7 @@
 import axios from "axios";
 import batmanLogo from "../assets/batman-silhouette-svgrepo-com.svg";
 import { z } from "zod";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
 import { setCredentials } from "../features/authSlice";
 
 const authSchema = z.object({
@@ -11,11 +11,13 @@ const authSchema = z.object({
 
 type Auth = z.infer<typeof authSchema>;
 
+
 const Login = () => {
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
 
     const formData = new FormData(e.currentTarget);
 
@@ -36,7 +38,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://batman-assessment.fusebox-prod.co.za/api/v1/login",
+        `${import.meta.env.VITE_BASE_URL}/login`,
         data
       );
       dispatch(setCredentials(response?.data));
