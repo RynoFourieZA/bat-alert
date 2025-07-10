@@ -6,6 +6,14 @@ interface AuthState {
   message: string;
 }
 
+interface PayloadType {
+  status: string; 
+  message: string; 
+  data: {
+    api_access_token: string
+  }
+}
+
 const initialState: AuthState = {
   token: "",
   status: "",
@@ -16,8 +24,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setCredentials: (state, action: PayloadAction<string>) => {
-      state.token = action.payload;
+    setCredentials: (state, action: PayloadAction<PayloadType>) => {
+      state.token = action.payload?.data?.api_access_token;
+      state.message = action.payload?.message;
+      state.status = action.payload?.status;
     },
     unsetCredentials: (state) => {
       state.token = "";
