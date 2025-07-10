@@ -3,6 +3,7 @@ import batmanLogo from "../assets/batman-silhouette-svgrepo-com.svg";
 import { z } from "zod";
 import { useAppDispatch } from "../app/hooks";
 import { setCredentials } from "../features/authSlice";
+import { useNavigate } from "react-router";
 
 const authSchema = z.object({
   email: z.string().email("Please enter a valid email"),
@@ -11,14 +12,14 @@ const authSchema = z.object({
 
 type Auth = z.infer<typeof authSchema>;
 
-
 const Login = () => {
   const dispatch = useAppDispatch();
+
+  let navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-
     const formData = new FormData(e.currentTarget);
 
     const parsed = authSchema.safeParse({
@@ -42,6 +43,7 @@ const Login = () => {
         data
       );
       dispatch(setCredentials(response?.data));
+      navigate("/dashboard")
     } catch (err) {
       return {
         success: false,
@@ -52,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-gray-800">
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
         <div className="p-6">
           <div className="flex justify-center items-center mx-auto mb-4">
