@@ -3,17 +3,17 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 interface PanicDetailsState {
   status?: string;
   message?: string;
-  panic_id: string;
+  panicId: number | null;
 }
 
 interface PayloadType {
   status?: string;
   message?: string;
-  panic_id: string;
+  panic_id: number | null;
 }
 
 const initialState: PanicDetailsState = {
-  panic_id: "",
+  panicId: null,
   message: "",
   status: "",
 };
@@ -23,8 +23,17 @@ const panicDetailsSlice = createSlice({
   initialState,
   reducers: {
     setPanicId: (state, action: PayloadAction<PayloadType>) => {
-      sessionStorage.setItem("panic_id", action.payload?.panic_id);
-      state.panic_id = action.payload?.panic_id;
+      const storedPanicId = sessionStorage.getItem("panic_id");
+
+      let getSessionPanicId: PayloadType;
+      
+        if (storedPanicId !== null) {
+          getSessionPanicId = { panic_id: +storedPanicId };
+        } else {
+          getSessionPanicId = { panic_id: null }; 
+        }
+
+      state.panicId = action.payload?.panic_id || getSessionPanicId.panic_id;
     },
   },
 });
