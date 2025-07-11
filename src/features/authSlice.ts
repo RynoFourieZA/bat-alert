@@ -14,6 +14,14 @@ interface PayloadType {
   };
 }
 
+export interface StatusType {
+  status: string;
+}
+
+export interface TokenType {
+  token: string;
+}
+
 const initialState: AuthState = {
   token: "",
   status: "",
@@ -28,16 +36,25 @@ const authSlice = createSlice({
       sessionStorage.setItem("token", action.payload?.data?.api_access_token);
       sessionStorage.setItem("message", action.payload?.message);
       sessionStorage.setItem("status", action.payload?.status);
+
       state.token = action.payload?.data?.api_access_token;
       state.message = action.payload?.message;
       state.status = action.payload?.status;
     },
     unsetCredentials: (state) => {
       state.token = "";
+      state.status = "";
+      state.message = "";
+    },
+    setStatus: (state, action: PayloadAction<StatusType>) => {
+      state.status = action.payload.status;
+    },
+    setToken: (state, action: PayloadAction<TokenType>) => {
+      state.token = action.payload.token;
     },
   },
 });
 
-export const { setCredentials, unsetCredentials } = authSlice.actions;
+export const { setCredentials, unsetCredentials, setStatus, setToken } = authSlice.actions;
 
 export default authSlice.reducer;
