@@ -8,7 +8,7 @@ export interface PanicDetailsState {
   details: string;
   created_at: string;
   status: {
-    id: number;
+    id: number | null;
     name: string;
   };
 }
@@ -20,6 +20,7 @@ interface PayloadType {
     panics: Array<PanicDetailsState>;
   };
   press?: boolean;
+  getLastAlert?: PanicDetailsState;
 }
 
 interface HistoryState {
@@ -29,10 +30,15 @@ interface HistoryState {
     panics: Array<PanicDetailsState>;
   };
   press?: boolean;
+  getLastAlert?: PanicDetailsState;
 }
 
 interface PayLoadPressType {
   press: boolean;
+}
+
+interface PayLoadLastAlertType {
+  getLastAlert?: PanicDetailsState;
 }
 
 const initialState: HistoryState = {
@@ -42,6 +48,18 @@ const initialState: HistoryState = {
     panics: [],
   },
   press: false,
+  getLastAlert: {
+    id: null,
+    longitude: "",
+    latitude: "",
+    panic_type: "",
+    details: "",
+    created_at: "",
+    status: {
+      id: null,
+      name: "",
+    },
+  },
 };
 
 const historySlice = createSlice({
@@ -56,9 +74,12 @@ const historySlice = createSlice({
     setPress: (state, action: PayloadAction<PayLoadPressType>) => {
       state.press = action.payload.press;
     },
+    setLastAlert: (state, action: PayloadAction<PayLoadLastAlertType>) => {
+      state.getLastAlert = action.payload.getLastAlert;
+    },
   },
 });
 
-export const { setHistory, setPress } = historySlice.actions;
+export const { setHistory, setPress, setLastAlert } = historySlice.actions;
 
 export default historySlice.reducer;

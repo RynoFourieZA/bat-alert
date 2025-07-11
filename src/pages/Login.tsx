@@ -14,12 +14,11 @@ type Auth = z.infer<typeof authSchema>;
 
 const Login = () => {
   const dispatch = useAppDispatch();
-
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const formData = new FormData(e.currentTarget);
 
     const parsed = authSchema.safeParse({
@@ -40,33 +39,34 @@ const Login = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/login`,
-        data
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
+
       dispatch(setCredentials(response?.data));
-      navigate("/dashboard")
+      navigate("/dashboard");
     } catch (err) {
-      return {
-        success: false,
-        error: "Something went wrong",
-        form: formData,
-      };
+      console.log("Something went wrong: ", err);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-gray-800">
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-gray-800 logo-wall">
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
         <div className="p-6">
-          <div className="flex justify-center items-center mx-auto mb-4">
+          <div className="flex flex-col justify-center items-center mx-auto mb-4 h-52">
             <img
               src={batmanLogo}
               alt="the logo of batman."
-              width={40}
-              height={40}
+              className="w-24 md:w-32"
             />
-            <h1 className="text-3xl ml-2 font-bold">Bat Alert</h1>
+            <h1 className="text-3xl font-bold">Bat Alert</h1>
           </div>
-          <h1 className="text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl mb-4">
+          <h1 className="text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl mb-8">
             Sign in to your account
           </h1>
           <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
@@ -104,7 +104,7 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-8"
             >
               Sign in
             </button>
