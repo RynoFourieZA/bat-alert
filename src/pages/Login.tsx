@@ -35,6 +35,7 @@ const Login = () => {
     }
 
     const data: Auth = parsed.data;
+    console.log("Deployed BASE_URL:", import.meta.env.VITE_BASE_URL);
 
     try {
       const response = await axios.post(
