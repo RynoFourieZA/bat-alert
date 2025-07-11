@@ -4,14 +4,8 @@ import { z } from "zod";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { setPanicId } from "../features/panicDetailsSlice";
-import PanicHistory, {
-  type PanicHistoryType,
-} from "../components/PanicHistory";
-import {
-  setHistory,
-  setPress,
-  type PanicDetailsState,
-} from "../features/historySlice";
+import PanicHistory from "../components/PanicHistory";
+import { setHistory, setPress } from "../features/historySlice";
 import { unsetCredentials } from "../features/authSlice";
 import { useNavigate } from "react-router";
 import CancelButton from "../components/CancelButton";
@@ -33,10 +27,8 @@ const Dashboard = () => {
     latitude: string;
     longitude: string;
   }>(null);
-  const [lastPanic, setLastPanic] = useState<null | PanicDetailsState>(null);
 
   const token = useAppSelector((state) => state.auth.token);
-  const panicId = useAppSelector((state) => state.details.panicId);
   const press = useAppSelector((state) => state.history.press);
 
   const dispatch = useAppDispatch();
@@ -152,7 +144,10 @@ const Dashboard = () => {
         </button>
       </div>
       <div className="flex justify-center items-center w-full">
-        <form className="flex flex-1 space-y-4 md:space-y-6 justify-between w-full" onSubmit={handlePanicButton}>
+        <form
+          className="flex flex-1 space-y-4 md:space-y-6 justify-between w-full"
+          onSubmit={handlePanicButton}
+        >
           <div className="flex-1">
             <div className="flex flex-col">
               <label
@@ -187,16 +182,18 @@ const Dashboard = () => {
               />
             </div>
           </div>
-          {!press && <div className="flex flex-col flex-1 justify-center items-center">
-            <h2 className="font-bold mb-4">Press Panic Alert Button</h2>
-            <button
-              type="submit"
-              className="border-black border-4 w-20 h-20 p-10 rounded-full bg-green-500 sm:w-40 sm:h-40"
-              style={{ transform: press ? "scale(0.8)" : "scale(1)" }}
-            >
-              <img src={batLogo} width={100} height={100} />
-            </button>
-          </div> }
+          {!press && (
+            <div className="flex flex-col flex-1 justify-center items-center">
+              <h2 className="font-bold mb-4">Press Panic Alert Button</h2>
+              <button
+                type="submit"
+                className="border-black border-4 w-20 h-20 p-10 rounded-full bg-green-500 sm:w-40 sm:h-40"
+                style={{ transform: press ? "scale(0.8)" : "scale(1)" }}
+              >
+                <img src={batLogo} width={100} height={100} />
+              </button>
+            </div>
+          )}
         </form>
         {press && <CancelButton />}
       </div>
