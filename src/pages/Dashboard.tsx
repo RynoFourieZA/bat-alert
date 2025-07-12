@@ -145,7 +145,7 @@ const Dashboard = () => {
       </div>
       <div className="flex justify-center items-center w-full">
         <form
-          className="flex flex-1 space-y-4 md:space-y-6 justify-between w-full"
+          className="flex flex-1 flex-col md:flex-row space-y-4 md:space-y-6 justify-between w-full"
           onSubmit={handlePanicButton}
         >
           <div className="flex-1">
@@ -187,17 +187,17 @@ const Dashboard = () => {
               <h2 className="font-bold mb-4">Press Panic Alert Button</h2>
               <button
                 type="submit"
-                className="border-black border-4 w-20 h-20 p-10 rounded-full bg-green-500 sm:w-40 sm:h-40"
+                className="border-black border-4 w-20 h-20 p-10 rounded-full bg-green-500 sm:w-40 sm:h-40 flex justify-center items-center"
                 style={{ transform: press ? "scale(0.8)" : "scale(1)" }}
               >
-                <img src={batLogo} width={100} height={100} />
+                <img src={batLogo} className="w-10 h-10 max-w-40 " />
               </button>
             </div>
           )}
         </form>
         {press && <CancelButton />}
       </div>
-      <div className="">
+      <div className="w-full ">
         <h2 className="text-2xl font-semibold mb-4">Panic History</h2>
         <PanicHistory />
       </div>

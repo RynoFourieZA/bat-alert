@@ -23,7 +23,7 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
-html, body {
+html, body, #root {
   height: 100%;
 }
 

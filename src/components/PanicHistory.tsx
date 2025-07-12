@@ -63,12 +63,12 @@ const PanicHistory = () => {
   );
 
   return (
-    <div className="relative overflow-x-auto">
+    <div className="w-full h-full overflow-x-auto overflow-y-auto">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-100">
           <tr>
             {headers?.map((header, index) => (
-              <th scope="col" className="px-6 py-3" key={index}>
+              <th scope="col" className="px-2 py-2 sm:px-6 sm:py-3" key={index}>
                 {header !== "status" ? (
                   header.replace("_", " ")
                 ) : (
@@ -108,13 +108,13 @@ const PanicHistory = () => {
                   className="bg-white border-b dark:bg-gray-200 dark:border-gray-700 border-gray-200 text-black hover:dark:bg-gray-300 text-xs"
                   key={panic.id}
                 >
-                  <td className="px-6 py-4">{panic.id}</td>
-                  <td className="px-6 py-4">{panic.longitude}</td>
-                  <td className="px-6 py-4">{panic.latitude}</td>
-                  <td className="px-6 py-4">{panic.panic_type}</td>
-                  <td className="px-6 py-4">{panic.details}</td>
-                  <td className="px-6 py-4">{panic.created_at.slice(0, 10)}</td>
-                  <td className="px-6 py-4">{panic.status.name}</td>
+                  <td className="px-2 py-2 sm:px-6 sm:py-3">{panic.id}</td>
+                  <td className="px-2 py-2 sm:px-6 sm:py-3">{panic.longitude}</td>
+                  <td className="px-2 py-2 sm:px-6 sm:py-3">{panic.latitude}</td>
+                  <td className="px-2 py-2 sm:px-6 sm:py-3">{panic.panic_type}</td>
+                  <td className="px-2 py-2 sm:px-6 sm:py-3">{panic.details}</td>
+                  <td className="px-2 py-2 sm:px-6 sm:py-3">{panic.created_at.slice(0, 10)}</td>
+                  <td className="px-2 py-2 sm:px-6 sm:py-3">{panic.status.name}</td>
                 </tr>
               ))}
         </tbody>
