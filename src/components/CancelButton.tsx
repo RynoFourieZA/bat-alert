@@ -23,7 +23,6 @@ const CancelButton = () => {
           },
         }
       );
-      console.log("response: ", response.data);
 
       if (response.data?.status === "success") {
         dispatch(setPress({ press: false }));

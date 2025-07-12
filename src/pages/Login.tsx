@@ -35,7 +35,6 @@ const Login = () => {
     }
 
     const data: Auth = parsed.data;
-    console.log("Deployed BASE_URL:", import.meta.env.VITE_BASE_URL);
 
     try {
       const response = await axios.post(
@@ -51,7 +50,7 @@ const Login = () => {
       dispatch(setCredentials(response?.data));
       navigate("/dashboard");
     } catch (err) {
-      console.log("Something went wrong: ", err);
+      console.error("Something went wrong: ", err);
     }
   };
 
